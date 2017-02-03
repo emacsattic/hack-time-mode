@@ -87,4 +87,7 @@ affected."
 ;; inner-program ends here
 
 
+(provide 'hack-time)
+
+
 ;;; hack-time.el ends here
