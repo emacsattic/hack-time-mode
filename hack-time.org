@@ -8,7 +8,7 @@ Author: Marco Wahl <marcowahlsoft@gmail.com>
 Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
 Created: 2017
 Version: see version control
-Keywords: convenience, helpers
+Keywords: time, convenience
 URL: https://marcowahl.github.io/ https://github.com/marcowahl/little-helpers
 
 This file is not part of Emacs.
@@ -88,7 +88,7 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 ;; Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
 ;; Created: 2017
 ;; Version: see version control
-;; Keywords: convenience, helpers
+;; Keywords: time, convenience
 ;; URL: https://marcowahl.github.io/ https://github.com/marcowahl/little-helpers
 ;;
 ;; This file is not part of Emacs.
