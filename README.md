@@ -1,5 +1,3 @@
-
-
 Hack time in Emacs
 ==================
 
@@ -17,7 +15,7 @@ Hack time by
 
 ## hack-time-current-time-back-to-normal ##
 
-Brings back time to normal with
+Bring back time to normal with
 
    - M-x hack-time-current-time-back-to-normal
 
