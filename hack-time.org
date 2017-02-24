@@ -36,9 +36,16 @@ hero can manipulate everything.
 Note that this freeze covers not every time-source of Emacs.  AFAICT
 ~(format-time-string "%X")~ gets its data somewhere else.
 
+*** Build
+
+Generate the source code by tangle this file.
+
+Do this concretely by calling `org-babel-tangle' which usually can be
+triggered by C-cv t.
+
 * Code
 :PROPERTIES:
-# :header-args: :tangle hack-time.el
+# :header-args: :tangle generated/hack-time.el
 :END:
 
 *** The program
@@ -48,19 +55,19 @@ Note that this freeze covers not every time-source of Emacs.  AFAICT
 
 The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Packages]].
 
-#+begin_src emacs-lisp :tangle hack-time.el :noweb yes
+#+begin_src emacs-lisp :tangle generated/hack-time.el :noweb yes
 ;;; hack-time.el --- Hack the time in Emacs   -*- lexical-binding: t -*-
 <<note-about-generation>>
 #+end_src
 
 #+name: inner-program
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle hack-time.el :comments noweb
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle generated/hack-time.el :comments noweb
 <<prologue>>
 <<freeze-current-time-core>>
 <<commands>>
 #+END_SRC
 
-#+begin_src emacs-lisp :noweb yes :tangle hack-time.el
+#+begin_src emacs-lisp :noweb yes :tangle generated/hack-time.el
 
 
 (provide 'hack-time)
