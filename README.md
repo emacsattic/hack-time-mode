@@ -29,9 +29,18 @@ again.
 Use case
 ========
 
-Mark Org-todo-items done at another day.
+- Fix Org-todo-items forgotten to mark done at another date.
+
+Shortcomings
+============
+
+'hack-time-mode' has limitted control over time.  There are many time
+sources in Emacs _not_ controlled by 'hack-time-mode'.
+
+Watch out!
 
 Dependencies
 ============
 
-Currently 'hack-time-mode' depends on Orgmode.
+Currently 'hack-time-mode' depends on function 'org-read-date' of
+Orgmode.
