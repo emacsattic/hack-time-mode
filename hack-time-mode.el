@@ -35,15 +35,15 @@
 
 ;;; Commentary:
 
-;; M-x hack-time-mode RET -1 RET
+;; M-x hack-time-mode RET -1 12:05 RET
 ;;
-;; sets current-time back to yesterday.
+;; sets current-time back to yesterday 12:05 PM.
 ;;
 ;; M-x hack-time-mode RET
 ;;
-;; disables hack-time-mode.
+;; disables hack-time-mode and brings back time to normal.
 
-;; See https://gitlab.com/marcowahl/hack-time-mode for more.
+;; See https://gitlab.com/marcowahl/hack-time-mode for the source.
 
 ;; prologue ends here
 ;; [[id:e0a33b2d-e274-4dd4-bb43-a7e324383984][ht-minor-mode-config]]
