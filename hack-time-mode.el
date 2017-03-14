@@ -13,7 +13,7 @@
 ;; Author: Marco Wahl <marcowahlsoft@gmail.com>
 ;; Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
 ;; Created: 2017
-;; Version: see version control
+;; Version: 0.0.0
 ;; Keywords: time, convenience
 ;; URL: https://marcowahl.github.io/ https://github.com/marcowahl/little-helpers
 ;;
@@ -66,6 +66,7 @@
 
   (defun hack-time-mode--freeze-advicer (x)
     "Can be advicer for ‘current-time’."
+    (ignore x)
     (append (date-to-time (concat hack-time-mode-day " 11:55")) (list 0 0)))
 
   (defun hack-time-mode--current-time-back-to-normal ()
