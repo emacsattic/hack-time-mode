@@ -1,4 +1,4 @@
-;;; hack-time.el --- Hack the time in Emacs   -*- lexical-binding: t; -*-
+;;; hack-time-mode.el --- Forge the time in Emacs   -*- lexical-binding: t; -*-
 
 
 ;; This file is supposed to be generated.  The real source is an Org
@@ -42,7 +42,7 @@
 ;;
 ;; disables hack-time-mode.
 
-;; See https://gitlab.com/marcowahl/hack-time for more.
+;; See https://gitlab.com/marcowahl/hack-time-mode for more.
 
 ;; prologue ends here
 ;; [[id:e0a33b2d-e274-4dd4-bb43-a7e324383984][ht-minor-mode-config]]
@@ -62,24 +62,24 @@
 ;; [[id:e62ab536-0322-4583-9994-0150a330445c][freeze-current-time-core]]
 
 
-(let (hack-time-day)
+(let (hack-time-mode-day)
 
-  (defun hack-time--freeze-advicer (x)
+  (defun hack-time-mode--freeze-advicer (x)
     "Can be advicer for ‘current-time’."
-    (append (date-to-time (concat hack-time-day " 11:55")) (list 0 0)))
+    (append (date-to-time (concat hack-time-mode-day " 11:55")) (list 0 0)))
 
-  (defun hack-time--current-time-back-to-normal ()
+  (defun hack-time-mode--current-time-back-to-normal ()
     "Remove all time hacks."
-    (if (advice-member-p #'hack-time--freeze-advicer #'current-time)
-        (advice-remove #'current-time #'hack-time--freeze-advicer)))
+    (if (advice-member-p #'hack-time-mode--freeze-advicer #'current-time)
+        (advice-remove #'current-time #'hack-time-mode--freeze-advicer)))
 
-  (defun hack-time--current-time-back-to-normal-with-message ()
+  (defun hack-time-mode--current-time-back-to-normal-with-message ()
     "Set current time back to normal and shout."
-    (hack-time--current-time-back-to-normal)
+    (hack-time-mode--current-time-back-to-normal)
     (message "%s" (format-time-string "current-time is: %Y-%m-%d %H:%M"
                                       (current-time))))
 
-  (defun hack-time--current-time-do-freeze (yyyy-mm-dd-??:??-string)
+  (defun hack-time-mode--current-time-do-freeze (yyyy-mm-dd-??:??-string)
     "Change ‘current-time’ to return the chosen date until reset.
 
 Advice ‘current-time’ to return time YYYY-MM-DD-??:??-STRING.
@@ -89,17 +89,17 @@ If no hours and minutes given then use 11:55.
 Note: This change does not affect every functionality that
 depends on time in Emacs.  E.g. ‘format-time-string’ is not
 affected."
-    (hack-time--current-time-back-to-normal)
-    (setf hack-time-day (concat yyyy-mm-dd-??:??-string " 11:55"))
-    (advice-add #'current-time :filter-return #'hack-time--freeze-advicer)))
+    (hack-time-mode--current-time-back-to-normal)
+    (setf hack-time-mode-day (concat yyyy-mm-dd-??:??-string " 11:55"))
+    (advice-add #'current-time :filter-return #'hack-time-mode--freeze-advicer)))
 ;; freeze-current-time-core ends here
 ;; [[id:5febcc2d-8798-4b1b-98ae-eb0f478db53d][commands]]
 
 ;; commands
-(defun hack-time-set-current-time ()
+(defun hack-time-mode-set-current-time ()
   "Ask user for a date and set it as current time.
 The current time does not move until call of
-`hack-time-current-time-back-to-normal'.
+`hack-time-mode-current-time-back-to-normal'.
 
 Examples for specifying the current time.
 
@@ -110,14 +110,14 @@ See `org-read-date' for more about how to specify the current
 time."
   (interactive)
   (let ((target-date (org-read-date)))
-    (hack-time--current-time-do-freeze target-date))
+    (hack-time-mode--current-time-do-freeze target-date))
   (message "%s" (format-time-string "current-time is: %Y-%m-%d %H:%M"
                                     (current-time))))
 ;; commands ends here
 ;; inner-program ends here
 
 
-(provide 'hack-time)
+(provide 'hack-time-mode)
 
 
-;;; hack-time.el ends here
+;;; hack-time-mode.el ends here
