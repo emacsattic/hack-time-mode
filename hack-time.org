@@ -9,7 +9,7 @@ Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
 Created: 2017
 Version: see version control
 Keywords: time, convenience
-URL: https://marcowahl.github.io/ https://github.com/marcowahl/little-helpers
+URL: https://gitlab.com/marcowahl/hack-time
 
 This file is not part of Emacs.
 
@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Forge the current time in Emacs.
 
 This is simply a minor mode.  You can turn it on to change the time
-and then turn it off to go back to normal time.
+and later turn it off to go back to normal time.
 
 Feel like in those SF films when the time stands still and the hero
 can manipulate everything.
@@ -48,7 +48,7 @@ triggered by C-cv t.
 
 * Code
 :PROPERTIES:
-# :header-args: :tangle generated/hack-time.el
+# :header-args: :tangle hack-time.el
 :END:
 
 *** The program
@@ -58,20 +58,20 @@ triggered by C-cv t.
 
 The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Packages]].
 
-#+begin_src emacs-lisp :tangle generated/hack-time.el :noweb yes
+#+begin_src emacs-lisp :tangle hack-time.el :noweb yes
 ;;; hack-time.el --- Hack the time in Emacs   -*- lexical-binding: t; -*-
 <<note-about-generation>>
 #+end_src
 
 #+name: inner-program
-#+BEGIN_SRC emacs-lisp :noweb yes :tangle generated/hack-time.el :comments noweb
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle hack-time.el :comments noweb
 <<prologue>>
 <<ht-minor-mode-config>>
 <<freeze-current-time-core>>
 <<commands>>
 #+END_SRC
 
-#+begin_src emacs-lisp :noweb yes :tangle generated/hack-time.el
+#+begin_src emacs-lisp :noweb yes :tangle hack-time.el
 
 
 (provide 'hack-time)
@@ -88,6 +88,7 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 #+NAME: prologue
 #+BEGIN_SRC emacs-lisp :noweb yes
 <<copyright>>
+<<commentary>>
 #+END_SRC
 
 ***** Copyright
@@ -129,6 +130,25 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 
 ;; This file is supposed to be generated.  The real source is an Org
 ;; file.  Keep this in mind when editing.
+#+end_src
+
+***** Commentary
+
+#+name: commentary
+#+begin_src emacs-lisp
+
+;;; Commentary:
+
+;; M-x hack-time-mode RET -1 RET
+;;
+;; sets current-time back to yesterday.
+;;
+;; M-x hack-time-mode RET
+;;
+;; disables hack-time-mode.
+
+;; See https://gitlab.com/marcowahl/hack-time for more.
+
 #+end_src
 
 *** Freeze Time
