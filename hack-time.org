@@ -28,12 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 * Commentary
 
-Functions to forge the time in Emacs.
+Forge the current time in Emacs.
 
-E.g. feel like in those SF films when the time stands still and the
-hero can manipulate everything.
+This is simply a minor mode.  You can turn it on to change the time
+and then turn it off to go back to normal time.
 
-Note that this freeze covers not every time-source of Emacs.  AFAICT
+Feel like in those SF films when the time stands still and the hero
+can manipulate everything.
+
+Note that this freeze covers not every time-source of Emacs.  E.g.
 ~(format-time-string "%X")~ gets its data somewhere else.
 
 *** Build
@@ -63,6 +66,7 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 #+name: inner-program
 #+BEGIN_SRC emacs-lisp :noweb yes :tangle generated/hack-time.el :comments noweb
 <<prologue>>
+<<ht-minor-mode-config>>
 <<freeze-current-time-core>>
 <<commands>>
 #+END_SRC
@@ -132,6 +136,27 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 :ID:       38d197fc-0a4d-4b82-ac71-280021d0ea5c
 :END:
 
+***** To the mode
+:PROPERTIES:
+:ID:       e0a33b2d-e274-4dd4-bb43-a7e324383984
+:END:
+
+#+name: ht-minor-mode-config
+#+begin_src emacs-lisp
+
+;;;###autoload
+(define-minor-mode hack-time-mode
+  "Toggle hack-time-mode.
+     Setting this variable directly does not take effect;
+     use either \\[customize] or the function `hack-time-mode'."
+  :group 'hack-time
+  :global t
+  :lighter " ht"
+  (if hack-time-mode
+      (call-interactively #'hack-time-set-current-time)
+    (hack-time--current-time-back-to-normal)))
+#+end_src
+
 ***** Core
 :PROPERTIES:
 :ID:       e62ab536-0322-4583-9994-0150a330445c
@@ -151,6 +176,12 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
     "Remove all time hacks."
     (if (advice-member-p #'hack-time--freeze-advicer #'current-time)
         (advice-remove #'current-time #'hack-time--freeze-advicer)))
+
+  (defun hack-time--current-time-back-to-normal-with-message ()
+    "Set current time back to normal and shout."
+    (hack-time--current-time-back-to-normal)
+    (message "%s" (format-time-string "current-time is: %Y-%m-%d %H:%M"
+                                      (current-time))))
 
   (defun hack-time--current-time-do-freeze (yyyy-mm-dd-??:??-string)
     "Change ‘current-time’ to return the chosen date until reset.
@@ -174,16 +205,8 @@ affected."
 
 #+name: commands
 #+begin_src emacs-lisp
-
 
 ;; commands
-(defun hack-time-current-time-back-to-normal ()
-  "Set current time back to normal."
-  (interactive)
-  (hack-time--current-time-back-to-normal)
-  (message "%s" (format-time-string "current-time is: %Y-%m-%d %H:%M"
-                                    (current-time))))
-
 (defun hack-time-set-current-time ()
   "Ask user for a date and set it as current time.
 The current time does not move until call of
@@ -204,18 +227,13 @@ time."
 #+end_src
 
 * Ideas
-*** Test
 
-*** Indicator
-
-Somehow indicate that a time-hack is applied when it is.
-
-- minor mode?
+*** More tests
 
 *** Relative time-hack
 
-Shift to another time and let the time flow naturally there.  Opposed
-to an absolute freeze.
+Shift to another time and let the time flow naturally there.  This is
+opposed to a freeze.
 
 * Closing notes
 
