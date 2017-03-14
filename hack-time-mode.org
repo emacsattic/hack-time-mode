@@ -58,7 +58,7 @@ triggered by C-cv t.
 The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Packages]].
 
 #+begin_src emacs-lisp :tangle hack-time-mode.el :noweb yes
-;;; hack-time-mode.el --- Forge the time in Emacs   -*- lexical-binding: t; -*-
+;;; hack-time-mode.el --- Forge time   -*- lexical-binding: t ; -*-
 <<note-about-generation>>
 #+end_src
 
@@ -102,6 +102,7 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 ;; Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
 ;; Created: 2017
 ;; Version: 0.0.0
+;; Package-Requires: ((emacs "24.4"))
 ;; Keywords: time, convenience
 ;; URL: https://marcowahl.github.io/ https://github.com/marcowahl/little-helpers
 ;;
