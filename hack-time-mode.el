@@ -57,8 +57,8 @@
   :global t
   :lighter " ht"
   (if hack-time-mode
-      (call-interactively #'hack-time-set-current-time)
-    (hack-time--current-time-back-to-normal)))
+      (call-interactively #'hack-time-mode-set-current-time)
+    (hack-time-mode--current-time-back-to-normal)))
 ;; ht-minor-mode-config ends here
 ;; [[id:e62ab536-0322-4583-9994-0150a330445c][freeze-current-time-core]]
 
