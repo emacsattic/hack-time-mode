@@ -216,7 +216,12 @@ depends on time in Emacs.  E.g. ‘format-time-string’ is not
 affected."
     (hack-time-mode--current-time-back-to-normal)
     (setf hack-time-mode-day (concat yyyy-mm-dd-??:??-string " 11:55"))
-    (advice-add #'current-time :filter-return #'hack-time-mode--freeze-advicer)))
+    (advice-add #'current-time :filter-return #'hack-time-mode--freeze-advicer))
+
+  (list 'hack-time-mode--current-time-back-to-normal-with-message
+        'hack-time-mode--current-time-back-to-normal
+        'hack-time-mode--freeze-advicer
+        'hack-time-mode--current-time-do-freeze))
 #+END_SRC
 
 ***** Commands
