@@ -241,6 +241,7 @@ Examples for specifying the current time.
 See `org-read-date' for more about how to specify the current
 time."
   (interactive)
+  (require 'org) ; for `org-read-date'
   (let ((target-date (org-read-date)))
     (hack-time-mode--current-time-do-freeze target-date))
   (message "%s" (format-time-string "current-time is: %Y-%m-%d %H:%M"
