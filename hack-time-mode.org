@@ -173,8 +173,8 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
   :global t
   :lighter " ht"
   (if hack-time-mode
-      (call-interactively #'hack-time-set-current-time)
-    (hack-time--current-time-back-to-normal)))
+      (call-interactively #'hack-time-mode-set-current-time)
+    (hack-time-mode--current-time-back-to-normal)))
 #+end_src
 
 ***** Core
