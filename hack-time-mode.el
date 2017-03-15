@@ -93,7 +93,12 @@ depends on time in Emacs.  E.g. ‘format-time-string’ is not
 affected."
     (hack-time-mode--current-time-back-to-normal)
     (setf hack-time-mode-day (concat yyyy-mm-dd-??:??-string " 11:55"))
-    (advice-add #'current-time :filter-return #'hack-time-mode--freeze-advicer)))
+    (advice-add #'current-time :filter-return #'hack-time-mode--freeze-advicer))
+
+  (list 'hack-time-mode--current-time-back-to-normal-with-message
+        'hack-time-mode--current-time-back-to-normal
+        'hack-time-mode--freeze-advicer
+        'hack-time-mode--current-time-do-freeze))
 ;; freeze-current-time-core ends here
 ;; [[id:5febcc2d-8798-4b1b-98ae-eb0f478db53d][commands]]
 
@@ -111,6 +116,7 @@ Examples for specifying the current time.
 See `org-read-date' for more about how to specify the current
 time."
   (interactive)
+  (require 'org) ; for `org-read-date'
   (let ((target-date (org-read-date)))
     (hack-time-mode--current-time-do-freeze target-date))
   (message "%s" (format-time-string "current-time is: %Y-%m-%d %H:%M"
