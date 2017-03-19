@@ -32,6 +32,7 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ;;; Commentary:
 
@@ -45,8 +46,12 @@
 
 ;; See https://gitlab.com/marcowahl/hack-time-mode for the source.
 
-;;; Code:
+;; Use case:
 
+;; - Fix Org-todo-items forgotten to mark as done at another date.
+
+
+;;; Code:
 ;; prologue ends here
 ;; [[id:e0a33b2d-e274-4dd4-bb43-a7e324383984][ht-minor-mode-config]]
 
