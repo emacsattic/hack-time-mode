@@ -244,8 +244,8 @@ affected."
 (declare-function org-read-date "org")
 
 
-;; commands
-(defun hack-time-mode-set-current-time ()
+;; Commands
+(defun hack-time-mode-set-current-time (target-date)
   "Ask user for a date and set it as current time.
 The current time does not move until call of
 `hack-time-mode-current-time-back-to-normal'.
@@ -257,9 +257,8 @@ Examples for specifying the current time.
 
 See `org-read-date' for more about how to specify the current
 time."
-  (interactive)
-  (let ((target-date (org-read-date)))
-    (hack-time-mode--current-time-do-freeze target-date))
+  (interactive (list (org-read-date)))
+  (hack-time-mode--current-time-do-freeze target-date)
   (message "%s" (format-time-string "current-time is: %Y-%m-%d %H:%M"
                                     (current-time))))
 #+end_src
