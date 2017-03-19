@@ -170,12 +170,13 @@ meta-data from the tangle in the melpa package description.
 
 #+name: ht-minor-mode-config
 #+begin_src emacs-lisp
+
 
 ;;;###autoload
 (define-minor-mode hack-time-mode
   "Toggle hack-time-mode.
-     Setting this variable directly does not take effect;
-     use either \\[customize] or the function `hack-time-mode'."
+Setting this variable directly does not take effect;
+use either \\[customize] or the function `hack-time-mode'."
   :group 'hack-time
   :global t
   :lighter " ht"
