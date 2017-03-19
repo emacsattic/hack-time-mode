@@ -107,6 +107,7 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 #+BEGIN_SRC emacs-lisp :noweb yes
 <<copyright>>
 <<commentary>>
+<<header-for-code-section>>
 #+END_SRC
 
 ***** Copyright
@@ -160,6 +161,7 @@ meta-data from the tangle in the melpa package description.
 
 #+name: commentary
 #+begin_src emacs-lisp
+
 
 ;;; Commentary:
 
@@ -173,8 +175,16 @@ meta-data from the tangle in the melpa package description.
 
 ;; See https://gitlab.com/marcowahl/hack-time-mode for the source.
 
-;;; Code:
+;; Use case:
 
+;; - Fix Org-todo-items forgotten to mark as done at another date.
+#+end_src
+
+#+name: header-for-code-section
+#+begin_src elisp
+
+
+;;; Code:
 #+end_src
 
 *** Freeze Time

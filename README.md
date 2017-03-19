@@ -29,7 +29,7 @@ again.
 Use case
 ========
 
-- Fix Org-todo-items forgotten to mark done at another date.
+- Fix Org-todo-items forgotten to mark as done at another date.
 
 Shortcomings
 ============
