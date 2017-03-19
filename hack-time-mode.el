@@ -13,7 +13,7 @@
 ;; Author: Marco Wahl <marcowahlsoft@gmail.com>
 ;; Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
 ;; Created: 2017
-;; Version: 0.0.0
+;; Version: 0.0.1
 ;; Package-Requires: ((emacs "24.4"))
 ;; Keywords: time, convenience
 ;; URL: https://marcowahl.github.io/ https://github.com/marcowahl/little-helpers
