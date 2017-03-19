@@ -45,14 +45,17 @@
 
 ;; See https://gitlab.com/marcowahl/hack-time-mode for the source.
 
+;;; Code:
+
 ;; prologue ends here
 ;; [[id:e0a33b2d-e274-4dd4-bb43-a7e324383984][ht-minor-mode-config]]
+
 
 ;;;###autoload
 (define-minor-mode hack-time-mode
   "Toggle hack-time-mode.
-     Setting this variable directly does not take effect;
-     use either \\[customize] or the function `hack-time-mode'."
+Setting this variable directly does not take effect;
+use either \\[customize] or the function `hack-time-mode'."
   :group 'hack-time
   :global t
   :lighter " ht"
@@ -101,9 +104,13 @@ affected."
         'hack-time-mode--current-time-do-freeze))
 ;; freeze-current-time-core ends here
 ;; [[id:5febcc2d-8798-4b1b-98ae-eb0f478db53d][commands]]
+
 
-;; commands
-(defun hack-time-mode-set-current-time ()
+(declare-function org-read-date "org")
+
+
+;; Commands
+(defun hack-time-mode-set-current-time (target-date)
   "Ask user for a date and set it as current time.
 The current time does not move until call of
 `hack-time-mode-current-time-back-to-normal'.
@@ -115,10 +122,8 @@ Examples for specifying the current time.
 
 See `org-read-date' for more about how to specify the current
 time."
-  (interactive)
-  (require 'org) ; for `org-read-date'
-  (let ((target-date (org-read-date)))
-    (hack-time-mode--current-time-do-freeze target-date))
+  (interactive (list (org-read-date)))
+  (hack-time-mode--current-time-do-freeze target-date)
   (message "%s" (format-time-string "current-time is: %Y-%m-%d %H:%M"
                                     (current-time))))
 ;; commands ends here
