@@ -134,6 +134,11 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 
 ***** Commentary
 
+This is documentation for the user within the elisp file.
+
+Special: The "Code:" section has been started in this block to avoid
+meta-data from the tangle in the melpa package description.
+
 #+name: commentary
 #+begin_src emacs-lisp
 
@@ -148,6 +153,8 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 ;; disables hack-time-mode and brings back time to normal.
 
 ;; See https://gitlab.com/marcowahl/hack-time-mode for the source.
+
+;;; Code:
 
 #+end_src
 
