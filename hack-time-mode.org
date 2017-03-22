@@ -59,7 +59,7 @@ Note that this freeze covers not every time-source of Emacs.  E.g.
 
 *** Build
 
-Generate the source code by tangle this file.
+Generate the elisp code by tangling this file.
 
 Do this concretely by calling `org-babel-tangle' which usually can be
 triggered by C-cv t.
@@ -148,8 +148,7 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 #+begin_src emacs-lisp
 
 
-;; This file is supposed to be generated.  The real source is an Org
-;; file.  Keep this in mind when editing.
+;; THIS FILE HAS BEEN GENERATED.
 #+end_src
 
 ***** Commentary
@@ -177,12 +176,19 @@ meta-data from the tangle in the melpa package description.
 
 ;; Use cases:
 
-;; - View Org agenda as if it was another day.  Achieve this by
+;; - View Org agenda as if today was another day.  Achieve this by
 ;;   hacking the time to the desired date and open the agenda.
 
 ;; - Mark Org-todo-items done at another day conveniently.  Achieve
 ;;   this by hacking the time to the desired date and change the
 ;;   todo-state of the item in question.
+
+;; Limitations:
+
+;; 'hack-time-mode' has actually limitted control over time.  There
+;; are time sources in Emacs _not_ controlled by 'hack-time-mode'.
+;; Watch out!
+
 #+end_src
 
 #+name: header-for-code-section
