@@ -15,7 +15,7 @@
 ;; Version: 0.0.1
 ;; Package-Requires: ((emacs "24.4"))
 ;; Keywords: time, convenience
-;; URL: https://marcowahl.github.io/ https://github.com/marcowahl/little-helpers
+;; URL: https://gitlab.com/marcowahl/hack-time-mode
 ;;
 ;; This file is not part of Emacs.
 ;;
