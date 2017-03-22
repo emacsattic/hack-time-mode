@@ -175,9 +175,14 @@ meta-data from the tangle in the melpa package description.
 
 ;; See https://gitlab.com/marcowahl/hack-time-mode for the source.
 
-;; Use case:
+;; Use cases:
 
-;; - Fix Org-todo-items forgotten to mark as done at another date.
+;; - View Org agenda as if it was another day.  Achieve this by
+;;   hacking the time to the desired date and open the agenda.
+
+;; - Mark Org-todo-items done at another day conveniently.  Achieve
+;;   this by hacking the time to the desired date and change the
+;;   todo-state of the item in question.
 #+end_src
 
 #+name: header-for-code-section
