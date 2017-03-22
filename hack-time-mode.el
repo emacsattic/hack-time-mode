@@ -1,8 +1,7 @@
 ;;; hack-time-mode.el --- Forge time   -*- lexical-binding: t ; -*-
 
 
-;; This file is supposed to be generated.  The real source is an Org
-;; file.  Keep this in mind when editing.
+;; THIS FILE HAS BEEN GENERATED.
 
 ;; [[id:bdf129d9-29f3-477c-9fab-a7879bdb7e5a][inner-program]]
 ;; [[id:e83c08f0-f37a-44c3-b9e9-bf6bb7a58402][prologue]]
@@ -46,9 +45,21 @@
 
 ;; See https://gitlab.com/marcowahl/hack-time-mode for the source.
 
-;; Use case:
+;; Use cases:
 
-;; - Fix Org-todo-items forgotten to mark as done at another date.
+;; - View Org agenda as if today was another day.  Achieve this by
+;;   hacking the time to the desired date and open the agenda.
+
+;; - Mark Org-todo-items done at another day conveniently.  Achieve
+;;   this by hacking the time to the desired date and change the
+;;   todo-state of the item in question.
+
+;; Limitations:
+
+;; 'hack-time-mode' has actually limitted control over time.  There
+;; are time sources in Emacs _not_ controlled by 'hack-time-mode'.
+;; Watch out!
+
 
 
 ;;; Code:
