@@ -77,7 +77,7 @@ use either \\[customize] or the function `hack-time-mode'."
   :lighter " ht"
   (if hack-time-mode
       (call-interactively #'hack-time-mode-set-current-time)
-    (hack-time-mode--current-time-back-to-normal)))
+    (hack-time-mode--current-time-back-to-normal-with-message)))
 ;; ht-minor-mode-config ends here
 ;; [[id:e62ab536-0322-4583-9994-0150a330445c][freeze-current-time-core]]
 
@@ -97,8 +97,9 @@ use either \\[customize] or the function `hack-time-mode'."
   (defun hack-time-mode--current-time-back-to-normal-with-message ()
     "Set current time back to normal and shout."
     (hack-time-mode--current-time-back-to-normal)
-    (message "%s" (format-time-string "current-time is: %Y-%m-%d %H:%M"
-                                      (current-time))))
+    (message "%s" (format-time-string
+                   "Time is back to normal.  current-time is: %Y-%m-%d %H:%M"
+                   (current-time))))
 
   (defun hack-time-mode--current-time-do-freeze (yyyy-mm-dd-??:??-string)
     "Change ‘current-time’ to return the chosen date until reset.
