@@ -1,3 +1,4 @@
+[comment]: <> -*- eval: (read-only-mode 1) -*-
 Hack time in Emacs
 ==================
 
