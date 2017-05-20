@@ -27,10 +27,13 @@ Turn the mode off typing
 
 again.
 
-Use case
+Use cases
 ========
 
-- Fix Org-todo-items forgotten to mark as done at another date.
+- Mark Org-todo-items done at another date.
+- View the Org agenda as if it was tomorrow.
+- Bulk scatter (keys BS in Org agenda) items starting at a certain
+  date.
 
 Shortcomings
 ============
