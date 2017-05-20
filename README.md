@@ -48,3 +48,9 @@ Dependencies
 
 Currently 'hack-time-mode' depends on function 'org-read-date' of
 Orgmode.
+
+Vision
+======
+
+`hack-time-mode` gives the user full control about every aspect of
+time in this universe and all parallel universes.
