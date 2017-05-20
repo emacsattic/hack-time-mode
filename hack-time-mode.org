@@ -371,6 +371,11 @@ time."
 Shift to another time and let the time flow naturally there.  This is
 opposed to a freeze.
 
+*** TODO Centralize the documentation
+
+- Idea: Use an orgee (Org subtree) for documentation.  Transform that orgee
+  to elisp and readme.md.
+
 * Closing notes
 
 
