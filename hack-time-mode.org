@@ -77,7 +77,7 @@ triggered by C-cv t.
 The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Packages]].
 
 #+begin_src emacs-lisp :tangle hack-time-mode.el :noweb yes
-;;; hack-time-mode.el --- Forge time   -*- lexical-binding: t ; -*-
+;;; hack-time-mode.el --- Forge time   -*- lexical-binding: t ; eval: (read-only-mode 1) -*-
 <<note-about-generation>>
 #+end_src
 
