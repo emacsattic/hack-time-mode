@@ -1,4 +1,4 @@
-;;; hack-time-mode.el --- Forge time   -*- lexical-binding: t ; -*-
+;;; hack-time-mode.el --- Forge time   -*- lexical-binding: t ; eval: (read-only-mode 1) -*-
 
 
 ;; THIS FILE HAS BEEN GENERATED.
