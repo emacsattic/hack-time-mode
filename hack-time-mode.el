@@ -4,7 +4,7 @@
 ;; THIS FILE HAS BEEN GENERATED.
 
 ;; [[id:bdf129d9-29f3-477c-9fab-a7879bdb7e5a][inner-program]]
-;; [[id:e83c08f0-f37a-44c3-b9e9-bf6bb7a58402][prologue]]
+;; [[[[id:e83c08f0-f37a-44c3-b9e9-bf6bb7a58402][Prologue]]][prologue]]
 
 
 ;; Copyright 2017 Marco Wahl
@@ -64,7 +64,7 @@
 
 ;;; Code:
 ;; prologue ends here
-;; [[id:e0a33b2d-e274-4dd4-bb43-a7e324383984][ht-minor-mode-config]]
+;; [[[[id:e0a33b2d-e274-4dd4-bb43-a7e324383984][To the mode]]][ht-minor-mode-config]]
 
 
 ;;;###autoload
@@ -79,7 +79,81 @@ use either \\[customize] or the function `hack-time-mode'."
       (call-interactively #'hack-time-mode-set-current-time)
     (hack-time-mode--current-time-back-to-normal-with-message)))
 ;; ht-minor-mode-config ends here
-;; [[id:e62ab536-0322-4583-9994-0150a330445c][freeze-current-time-core]]
+;; [[[[id:e62ab536-0322-4583-9994-0150a330445c][Core]]][forge-time-symbol-functions]]
+; credits to Paul Eggert who introduced this to org-test.el.
+
+(defvar hack-time-mode-at)
+
+(defconst hack-time-mode-current-time (symbol-function 'current-time))
+(defconst hack-time-mode-current-time-string (symbol-function 'current-time-string))
+(defconst hack-time-mode-current-time-zone (symbol-function 'current-time-zone))
+(defconst hack-time-mode-decode-time (symbol-function 'decode-time))
+(defconst hack-time-mode-encode-time (symbol-function 'encode-time))
+(defconst hack-time-mode-float-time (symbol-function 'float-time))
+(defconst hack-time-mode-format-time-string (symbol-function 'format-time-string))
+(defconst hack-time-mode-set-file-times (symbol-function 'set-file-times))
+(defconst hack-time-mode-time-add (symbol-function 'time-add))
+(defconst hack-time-mode-time-equal-p (symbol-function 'time-equal-p))
+(defconst hack-time-mode-time-less-p (symbol-function 'time-less-p))
+(defconst hack-time-mode-time-subtract (symbol-function 'time-subtract))
+
+(defun hack-time-mode--reset ()
+  (setf (symbol-function 'current-time) hack-time-mode-current-time)
+  (setf (symbol-function 'current-time-string) hack-time-mode-current-time-string)
+  (setf (symbol-function 'current-time-zone) hack-time-mode-current-time-zone)
+  (setf (symbol-function 'decode-time) hack-time-mode-decode-time)
+  (setf (symbol-function 'encode-time) hack-time-mode-encode-time)
+  (setf (symbol-function 'float-time) hack-time-mode-float-time)
+  (setf (symbol-function 'format-time-string) hack-time-mode-format-time-string)
+  (setf (symbol-function 'set-file-times) hack-time-mode-set-file-times)
+  (setf (symbol-function 'time-add) hack-time-mode-time-add)
+  (setf (symbol-function 'time-equal-p) hack-time-mode-time-equal-p)
+  (setf (symbol-function 'time-less-p) hack-time-mode-time-less-p)
+  (setf (symbol-function 'time-subtract) hack-time-mode-time-subtract))
+
+(defun hack-time-mode--set-time (hack-time)
+  (setf hack-time-mode-at (if (stringp hack-time)
+               (apply #'encode-time (org-parse-time-string hack-time))
+             hack-time))
+  (setf (symbol-function 'current-time) (lambda () hack-time-mode-at))
+  (setf (symbol-function 'current-time-string)
+        (lambda (&optional time &rest args)
+          (apply hack-time-mode-current-time-string
+                 (or time hack-time-mode-at) args)))
+  (setf (symbol-function 'current-time-zone)
+        (lambda (&optional time &rest args)
+          (apply hack-time-mode-current-time-zone
+                 (or time hack-time-mode-at) args)))
+  (setf (symbol-function 'decode-time)
+        (lambda (&optional time) (funcall hack-time-mode-decode-time
+                                     (or time hack-time-mode-at))))
+  (setf (symbol-function 'encode-time)
+        (lambda (time &rest args)
+          (apply hack-time-mode-encode-time (or time hack-time-mode-at) args)))
+  (setf (symbol-function 'float-time)
+        (lambda (&optional time)
+          (funcall hack-time-mode-float-time (or time hack-time-mode-at))))
+  (setf (symbol-function 'format-time-string)
+        (lambda (format &optional time &rest args)
+          (apply hack-time-mode-format-time-string
+                 format (or time hack-time-mode-at) args)))
+  (setf (symbol-function 'set-file-times)
+        (lambda (file &optional time)
+          (funcall hack-time-mode-set-file-times file (or time hack-time-mode-at))))
+  (setf (symbol-function 'time-add)
+        (lambda (a b) (funcall hack-time-mode-time-add
+                          (or a hack-time-mode-at) (or b hack-time-mode-at))))
+  (setf (symbol-function 'time-equal-p)
+        (lambda (a b) (funcall hack-time-mode-time-equal-p
+                          (or a hack-time-mode-at) (or b hack-time-mode-at))))
+  (setf (symbol-function 'time-less-p)
+        (lambda (a b) (funcall hack-time-mode-time-less-p
+                          (or a hack-time-mode-at) (or b hack-time-mode-at))))
+  (setf (symbol-function 'time-subtract)
+        (lambda (a b) (funcall hack-time-mode-time-subtract
+                               (or a hack-time-mode-at) (or b hack-time-mode-at)))))
+;; forge-time-symbol-functions ends here
+;; [[[[id:e62ab536-0322-4583-9994-0150a330445c][Core]]][freeze-current-time-core]]
 
 
 (let (hack-time-mode-day)
@@ -96,7 +170,7 @@ use either \\[customize] or the function `hack-time-mode'."
 
   (defun hack-time-mode--current-time-back-to-normal-with-message ()
     "Set current time back to normal and shout."
-    (hack-time-mode--current-time-back-to-normal)
+    (hack-time-mode--reset)
     (message "%s" (format-time-string
                    "Time is back to normal.  current-time is: %Y-%m-%d %H:%M"
                    (current-time))))
@@ -120,7 +194,7 @@ affected."
         'hack-time-mode--freeze-advicer
         'hack-time-mode--current-time-do-freeze))
 ;; freeze-current-time-core ends here
-;; [[id:5febcc2d-8798-4b1b-98ae-eb0f478db53d][commands]]
+;; [[[[id:5febcc2d-8798-4b1b-98ae-eb0f478db53d][Commands]]][commands]]
 
 
 (declare-function org-read-date "org")
@@ -140,7 +214,7 @@ Examples for specifying the current time.
 See `org-read-date' for more about how to specify the current
 time."
   (interactive (list (org-read-date)))
-  (hack-time-mode--current-time-do-freeze target-date)
+  (hack-time-mode--set-time (concat target-date " 11:55")) ; little hack to get HH:MM in case user did not specify.
   (message "%s" (format-time-string "current-time hacked to: %Y-%m-%d %H:%M"
                                     (current-time))))
 ;; commands ends here
