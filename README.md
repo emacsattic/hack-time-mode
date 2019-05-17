@@ -15,8 +15,8 @@ Hack time by typing
 
 After this action the current time is frozen to the chosen date.
 
-Watch out for 'ht' in the modeline which indicates that hack-time-mode
-is on.
+Watch out for 'HACK-TIME-MODE' in the modeline which indicates that
+hack-time-mode is on.
 
 Back to normal
 --------------

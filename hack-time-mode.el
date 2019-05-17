@@ -74,7 +74,7 @@ Setting this variable directly does not take effect;
 use either \\[customize] or the function `hack-time-mode'."
   :group 'hack-time
   :global t
-  :lighter " ht"
+  :lighter " HACK-TIME-MODE"
   (if hack-time-mode
       (call-interactively #'hack-time-mode-set-current-time)
     (hack-time-mode--current-time-back-to-normal-with-message)))

@@ -89,8 +89,8 @@ Hack time by typing
 
 After this action the current time is frozen to the chosen date.
 
-Watch out for 'ht' in the modeline which indicates that hack-time-mode
-is on.
+Watch out for 'HACK-TIME-MODE' in the modeline which indicates that
+hack-time-mode is on.
 
 Back to normal
 --------------
@@ -287,7 +287,7 @@ Setting this variable directly does not take effect;
 use either \\[customize] or the function `hack-time-mode'."
   :group 'hack-time
   :global t
-  :lighter " ht"
+  :lighter " HACK-TIME-MODE"
   (if hack-time-mode
       (call-interactively #'hack-time-mode-set-current-time)
     (hack-time-mode--current-time-back-to-normal-with-message)))
