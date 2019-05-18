@@ -1,12 +1,103 @@
 #+STARTUP: odd
 
-* About
+* Commentary
 
-Copyright 2017 Marco Wahl
+Forge the current time in Emacs.
+
+This is a minor mode.  You can turn it on to change the time and later
+turn it off to go back to normal time.
+
+Feel like in those SF films when the time stands still and the hero
+can manipulate everything.
+
+Note that this freeze covers not every time-source of Emacs.  E.g.
+~(format-time-string "%x")~ is not affected by hack-time-mode.
+
+*** Hack time in Emacs
+:PROPERTIES:
+:ID:       f317b80f-d59c-4e7a-8b4e-11d3e25d0d48
+:END:
+
+#+name: enable-hack-time-mode
+#+begin_src org
+Hack time by typing
+
+    {M-x hack-time-mode RET}
+
+- Choose a date.  E.g. enter
+  - "+" for tomorrow 11:55AM.  11:55AM has been chosen as default.
+  - "-1" for yesterday.  Time gets set to 11:55AM.
+  - "-10 12:05" for 10 days ago at 12:05 PM"
+
+After this action the current time is frozen to the chosen time.
+
+Watch out for 'HACK-TIME-MODE' in the modeline which indicates that
+hack-time-mode is on.
+#+end_src
+
+*** Back to normal
+
+#+name: disable-hack-time-mode
+#+begin_src org
+Turn the mode off typing
+
+    {M-x hack-time-mode RET}
+
+again.  The time is back to normal flow.
+#+end_src
+
+*** Further
+
+#+name: more-about-hack-time-mode
+#+begin_src org
+,* Use cases
+
+- Mark Org-todo-items done at another date.
+- View the Org agenda as if it was tomorrow.
+- Bulk scatter (keys BS in Org agenda) items starting at a certain
+  date.
+
+,* Warning
+
+"With great power comes great responsibility." (from the TL;DR for
+Timelords)
+
+Possibly some functionalities behave weird when hack-time-mode is on.
+
+Watch out!
+
+'hack-time-mode' has limitted control over time.  There are time
+sources in Emacs which can _not_ be controlled by 'hack-time-mode'.
+
+,* Dependencies
+
+'hack-time-mode' depends on function 'org-read-date' of
+Orgmode.
+
+,* Vision
+
+`hack-time-mode` gives the user full control about every aspect of
+time in this universe and all parallel universes.
+#+end_src
+
+*** Build
+
+Generate the elisp code by tangling the org-source file.
+
+Do this concretely by calling `org-babel-tangle' which usually can be
+triggered by C-cv t.
+
+*** License GPL 3
+
+#+name: copyright-hack-time-mode
+#+begin_src org
+Copyright 2017-2019 Marco Wahl
 
 Author: Marco Wahl <marcowahlsoft@gmail.com>
 Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
 Created: 2017
+Version: <<hack-time-mode-version>>
+Package-Requires: ((emacs "24.4"))
 Keywords: time, convenience
 URL: https://gitlab.com/marcowahl/hack-time-mode
 
@@ -24,19 +115,20 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#+end_src
 
 * Version
 
 #+name: hack-time-mode-version
 #+begin_src text
-0.0.1
+0.1.0
 #+end_src
 
 *** Log
 
-***** 0.0.0
+***** 0.1.0
 
-Initial shot.
+- Use forge suggested by Paul Eggert.  See org-test.el.
 
 ***** 0.0.1
 
@@ -44,92 +136,9 @@ Initial shot.
 - Improvements of the code.  Input from Steve Purcell and (maybe
   already in 0.0.0) from Syohei YOSHIDA.
 
-* Commentary
+***** 0.0.0
 
-Forge the current time in Emacs.
-
-This is simply a minor mode.  You can turn it on to change the time
-and later turn it off to go back to normal time.
-
-Feel like in those SF films when the time stands still and the hero
-can manipulate everything.
-
-Note that this freeze covers not every time-source of Emacs.  E.g.
-~(format-time-string "%X")~ gets its data somewhere else.
-
-*** Build
-
-Generate the elisp code by tangling this file.
-
-Do this concretely by calling `org-babel-tangle' which usually can be
-triggered by C-cv t.
-
-*** Documentation
-:PROPERTIES:
-:ID:       f317b80f-d59c-4e7a-8b4e-11d3e25d0d48
-:END:
-
-This is the README file.
-
-#+begin_src markdown :tangle README.md
-[comment]: <> -*- eval: (read-only-mode 1) -*-
-Hack time in Emacs
-==================
-
-Hack time
----------
-
-Hack time by typing
-
-    M-x hack-time-mode
-
-- Choose a date.  E.g. enter
-  - "-1" for yesterday.  Time gets set to 11:55AM.
-  - "-10 12:05" for 10 days ago at 12:05 PM"
-
-After this action the current time is frozen to the chosen date.
-
-Watch out for 'HACK-TIME-MODE' in the modeline which indicates that
-hack-time-mode is on.
-
-Back to normal
---------------
-
-Turn the mode off typing
-
-    M-x hack-time-mode
-
-again.
-
-Use cases
-========
-
-- Mark Org-todo-items done at another date.
-- View the Org agenda as if it was tomorrow.
-- Bulk scatter (keys BS in Org agenda) items starting at a certain
-  date.
-
-Shortcomings
-============
-
-'hack-time-mode' has limitted control over time.  There are many time
-sources in Emacs _not_ controlled by 'hack-time-mode'.
-
-Watch out!
-
-Dependencies
-============
-
-Currently 'hack-time-mode' depends on function 'org-read-date' of
-Orgmode.
-
-Vision
-======
-
-`hack-time-mode` gives the user full control about every aspect of
-time in this universe and all parallel universes.
-
-#+end_src
+Initial shot.
 
 * Code
 :PROPERTIES:
@@ -153,7 +162,6 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 <<prologue>>
 <<ht-minor-mode-config>>
 <<forge-time-symbol-functions>>
-<<freeze-current-time-core>>
 <<commands>>
 #+END_SRC
 
@@ -173,41 +181,9 @@ The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Package
 
 #+NAME: prologue
 #+BEGIN_SRC emacs-lisp :noweb yes
-<<copyright>>
-<<commentary>>
+;; <<copyright-hack-time-mode>>
+;; <<commentary>>
 <<header-for-code-section>>
-#+END_SRC
-
-***** Copyright
-
-#+NAME: copyright
-#+BEGIN_SRC emacs-lisp :noweb yes
-
-
-;; Copyright 2017 Marco Wahl
-;;
-;; Author: Marco Wahl <marcowahlsoft@gmail.com>
-;; Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
-;; Created: 2017
-;; Version: <<hack-time-mode-version>>
-;; Package-Requires: ((emacs "24.4"))
-;; Keywords: time, convenience
-;; URL: https://gitlab.com/marcowahl/hack-time-mode
-;;
-;; This file is not part of Emacs.
-;;
-;; This program is free software: you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #+END_SRC
 
 ***** Note about generation
@@ -227,36 +203,12 @@ Special: The "Code:" section has been started in this block to avoid
 meta-data from the tangle in the melpa package description.
 
 #+name: commentary
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :noweb yes
 
 
-;;; Commentary:
-
-;; M-x hack-time-mode RET -1 12:05 RET
-;;
-;; sets current-time back to yesterday 12:05 PM.
-;;
-;; M-x hack-time-mode RET
-;;
-;; disables hack-time-mode and brings back time to normal.
-
-;; See https://gitlab.com/marcowahl/hack-time-mode for the source.
-
-;; Use cases:
-
-;; - View Org agenda as if today was another day.  Achieve this by
-;;   hacking the time to the desired date and open the agenda.
-
-;; - Mark Org-todo-items done at another day conveniently.  Achieve
-;;   this by hacking the time to the desired date and change the
-;;   todo-state of the item in question.
-
-;; Limitations:
-
-;; 'hack-time-mode' has actually limitted control over time.  There
-;; are time sources in Emacs _not_ controlled by 'hack-time-mode'.
-;; Watch out!
-
+<<enable-hack-time-mode>>
+<<disable-hack-time-mode>>
+<<more-about-hack-time-mode>>
 #+end_src
 
 #+name: header-for-code-section
