@@ -1,1 +1,423 @@
-./hack-time-mode.org
+#+STARTUP: odd
+
+* Commentary
+
+Forge the current time in Emacs.
+
+This is a minor mode.  You can turn it on to change the time and later
+turn it off to go back to normal time.
+
+Feel like in those SF films when the time stands still and the hero
+can manipulate everything.
+
+Note that this freeze covers not every time-source of Emacs.  E.g.
+~(format-time-string "%x")~ is not affected by hack-time-mode.
+
+*** Hack time in Emacs
+:PROPERTIES:
+:ID:       f317b80f-d59c-4e7a-8b4e-11d3e25d0d48
+:END:
+
+#+name: enable-hack-time-mode
+#+begin_src org
+Hack time by typing
+
+    {M-x hack-time-mode RET}
+
+- Choose a date.  E.g. enter
+  - "+" for tomorrow 11:55AM.  11:55AM has been chosen as default.
+  - "-1" for yesterday.  Time gets set to 11:55AM.
+  - "-10 12:05" for 10 days ago at 12:05 PM"
+
+After this action the current time is frozen to the chosen time.
+
+Watch out for 'HACK-TIME-MODE' in the modeline which indicates that
+hack-time-mode is on.
+#+end_src
+
+*** Back to normal
+
+#+name: disable-hack-time-mode
+#+begin_src org
+Turn the mode off typing
+
+    {M-x hack-time-mode RET}
+
+again.  The time is back to normal flow.
+#+end_src
+
+*** Further
+
+#+name: more-about-hack-time-mode
+#+begin_src org
+,* Use cases
+
+- Mark Org-todo-items done at another date.
+- View the Org agenda as if it was tomorrow.
+- Bulk scatter (keys BS in Org agenda) items starting at a certain
+  date.
+
+,* Warning
+
+"With great power comes great responsibility." (from the TL;DR for
+Timelords)
+
+Possibly some functionalities behave weird when hack-time-mode is on.
+
+Watch out!
+
+'hack-time-mode' has limitted control over time.  There are time
+sources in Emacs which can _not_ be controlled by 'hack-time-mode'.
+
+,* Dependencies
+
+'hack-time-mode' depends on function 'org-read-date' of
+Orgmode.
+
+,* Vision
+
+`hack-time-mode` gives the user full control about every aspect of
+time in this universe and all parallel universes.
+#+end_src
+
+*** Build
+
+Generate the elisp code by tangling the org-source file.
+
+Do this concretely by calling `org-babel-tangle' which usually can be
+triggered by C-cv t.
+
+*** License GPL 3
+
+#+name: copyright-hack-time-mode
+#+begin_src org
+Copyright 2017-2019 Marco Wahl
+
+Author: Marco Wahl <marcowahlsoft@gmail.com>
+Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
+Created: 2017
+Version: <<hack-time-mode-version>>
+Package-Requires: ((emacs "24.4"))
+Keywords: time, convenience
+URL: https://gitlab.com/marcowahl/hack-time-mode
+
+This file is not part of Emacs.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#+end_src
+
+* Version
+
+#+name: hack-time-mode-version
+#+begin_src text
+0.1.0
+#+end_src
+
+*** Log
+
+***** 0.1.0
+
+- Use forge suggested by Paul Eggert.  See org-test.el.
+
+***** 0.0.1
+
+- Fixes of documentation.
+- Improvements of the code.  Input from Steve Purcell and (maybe
+  already in 0.0.0) from Syohei YOSHIDA.
+
+***** 0.0.0
+
+Initial shot.
+
+* Code
+:PROPERTIES:
+# :header-args: :tangle hack-time-mode.el
+:END:
+
+*** The program
+:PROPERTIES:
+:ID:       bdf129d9-29f3-477c-9fab-a7879bdb7e5a
+:END:
+
+The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Packages]].
+
+#+begin_src emacs-lisp :tangle hack-time-mode.el :noweb yes
+;;; hack-time-mode.el --- Forge time   -*- lexical-binding: t ; eval: (read-only-mode 1) -*-
+<<note-about-generation>>
+#+end_src
+
+#+name: inner-program
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle hack-time-mode.el :comments noweb
+<<prologue>>
+<<ht-minor-mode-config>>
+<<forge-time-symbol-functions>>
+<<commands>>
+#+END_SRC
+
+#+begin_src emacs-lisp :noweb yes :tangle hack-time-mode.el
+
+
+(provide 'hack-time-mode)
+
+
+;;; hack-time-mode.el ends here
+#+end_src
+
+*** Prologue
+:PROPERTIES:
+:ID:       e83c08f0-f37a-44c3-b9e9-bf6bb7a58402
+:END:
+
+#+NAME: prologue
+#+BEGIN_SRC emacs-lisp :noweb yes
+;; <<copyright-hack-time-mode>>
+
+;;; Commentary:
+;; <<commentary>>
+<<header-for-code-section>>
+#+END_SRC
+
+***** Note about generation
+
+#+name: note-about-generation
+#+begin_src emacs-lisp
+
+
+;; THIS FILE HAS BEEN GENERATED.
+#+end_src
+
+***** Commentary
+
+This is documentation for the user within the elisp file.
+
+Special: The "Code:" section has been started in this block to avoid
+meta-data from the tangle in the melpa package description.
+
+#+name: commentary
+#+begin_src emacs-lisp :noweb yes
+
+
+<<enable-hack-time-mode>>
+<<disable-hack-time-mode>>
+<<more-about-hack-time-mode>>
+#+end_src
+
+#+name: header-for-code-section
+#+begin_src elisp
+
+
+;;; Code:
+#+end_src
+
+*** Freeze Time
+:PROPERTIES:
+:ID:       38d197fc-0a4d-4b82-ac71-280021d0ea5c
+:END:
+
+***** To the mode
+:PROPERTIES:
+:ID:       e0a33b2d-e274-4dd4-bb43-a7e324383984
+:END:
+
+#+name: ht-minor-mode-config
+#+begin_src emacs-lisp
+
+
+;;;###autoload
+(define-minor-mode hack-time-mode
+  "Toggle hack-time-mode.
+Setting this variable directly does not take effect;
+use either \\[customize] or the function `hack-time-mode'."
+  :group 'hack-time
+  :global t
+  :lighter " HACK-TIME-MODE"
+  (if hack-time-mode
+      (call-interactively #'hack-time-mode-set-current-time)
+    (hack-time-mode--current-time-back-to-normal-with-message)))
+#+end_src
+
+***** Core
+:PROPERTIES:
+:ID:       e62ab536-0322-4583-9994-0150a330445c
+:END:
+
+#+NAME: freeze-current-time-core
+#+BEGIN_SRC emacs-lisp
+
+
+(let (hack-time-mode-day)
+
+  (defun hack-time-mode--freeze-advicer (x)
+    "Can be advicer for ‘current-time’."
+    (ignore x)
+    (append (date-to-time (concat hack-time-mode-day " 11:55")) (list 0 0)))
+
+  (defun hack-time-mode--current-time-back-to-normal ()
+    "Remove all time hacks."
+    (if (advice-member-p #'hack-time-mode--freeze-advicer #'current-time)
+        (advice-remove #'current-time #'hack-time-mode--freeze-advicer)))
+
+  (defun hack-time-mode--current-time-back-to-normal-with-message ()
+    "Set current time back to normal and shout."
+    (hack-time-mode--reset)
+    (message "%s" (format-time-string
+                   "Time is back to normal.  current-time is: %Y-%m-%d %H:%M"
+                   (current-time))))
+
+  (defun hack-time-mode--current-time-do-freeze (yyyy-mm-dd-??:??-string)
+    "Change ‘current-time’ to return the chosen date until reset.
+
+Advice ‘current-time’ to return time YYYY-MM-DD-??:??-STRING.
+
+If no hours and minutes given then use 11:55.
+
+Note: This change does not affect every functionality that
+depends on time in Emacs.  E.g. ‘format-time-string’ is not
+affected."
+    (hack-time-mode--current-time-back-to-normal)
+    (setf hack-time-mode-day (concat yyyy-mm-dd-??:??-string " 11:55"))
+    (advice-add #'current-time :filter-return #'hack-time-mode--freeze-advicer))
+
+  (list 'hack-time-mode--current-time-back-to-normal-with-message
+        'hack-time-mode--current-time-back-to-normal
+        'hack-time-mode--freeze-advicer
+        'hack-time-mode--current-time-do-freeze))
+#+END_SRC
+
+#+name: forge-time-symbol-functions
+#+begin_src emacs-lisp
+; credits to Paul Eggert who introduced this to org-test.el.
+
+(defvar hack-time-mode-at)
+
+(defconst hack-time-mode-current-time (symbol-function 'current-time))
+(defconst hack-time-mode-current-time-string (symbol-function 'current-time-string))
+(defconst hack-time-mode-current-time-zone (symbol-function 'current-time-zone))
+(defconst hack-time-mode-decode-time (symbol-function 'decode-time))
+(defconst hack-time-mode-encode-time (symbol-function 'encode-time))
+(defconst hack-time-mode-float-time (symbol-function 'float-time))
+(defconst hack-time-mode-format-time-string (symbol-function 'format-time-string))
+(defconst hack-time-mode-set-file-times (symbol-function 'set-file-times))
+(defconst hack-time-mode-time-add (symbol-function 'time-add))
+(defconst hack-time-mode-time-equal-p (symbol-function 'time-equal-p))
+(defconst hack-time-mode-time-less-p (symbol-function 'time-less-p))
+(defconst hack-time-mode-time-subtract (symbol-function 'time-subtract))
+
+(defun hack-time-mode--reset ()
+  (setf (symbol-function 'current-time) hack-time-mode-current-time)
+  (setf (symbol-function 'current-time-string) hack-time-mode-current-time-string)
+  (setf (symbol-function 'current-time-zone) hack-time-mode-current-time-zone)
+  (setf (symbol-function 'decode-time) hack-time-mode-decode-time)
+  (setf (symbol-function 'encode-time) hack-time-mode-encode-time)
+  (setf (symbol-function 'float-time) hack-time-mode-float-time)
+  (setf (symbol-function 'format-time-string) hack-time-mode-format-time-string)
+  (setf (symbol-function 'set-file-times) hack-time-mode-set-file-times)
+  (setf (symbol-function 'time-add) hack-time-mode-time-add)
+  (setf (symbol-function 'time-equal-p) hack-time-mode-time-equal-p)
+  (setf (symbol-function 'time-less-p) hack-time-mode-time-less-p)
+  (setf (symbol-function 'time-subtract) hack-time-mode-time-subtract))
+
+(defun hack-time-mode--set-time (hack-time)
+  (setf hack-time-mode-at (if (stringp hack-time)
+               (apply #'encode-time (org-parse-time-string hack-time))
+             hack-time))
+  (setf (symbol-function 'current-time) (lambda () hack-time-mode-at))
+  (setf (symbol-function 'current-time-string)
+        (lambda (&optional time &rest args)
+          (apply hack-time-mode-current-time-string
+                 (or time hack-time-mode-at) args)))
+  (setf (symbol-function 'current-time-zone)
+        (lambda (&optional time &rest args)
+          (apply hack-time-mode-current-time-zone
+                 (or time hack-time-mode-at) args)))
+  (setf (symbol-function 'decode-time)
+        (lambda (&optional time) (funcall hack-time-mode-decode-time
+                                     (or time hack-time-mode-at))))
+  (setf (symbol-function 'encode-time)
+        (lambda (time &rest args)
+          (apply hack-time-mode-encode-time (or time hack-time-mode-at) args)))
+  (setf (symbol-function 'float-time)
+        (lambda (&optional time)
+          (funcall hack-time-mode-float-time (or time hack-time-mode-at))))
+  (setf (symbol-function 'format-time-string)
+        (lambda (format &optional time &rest args)
+          (apply hack-time-mode-format-time-string
+                 format (or time hack-time-mode-at) args)))
+  (setf (symbol-function 'set-file-times)
+        (lambda (file &optional time)
+          (funcall hack-time-mode-set-file-times file (or time hack-time-mode-at))))
+  (setf (symbol-function 'time-add)
+        (lambda (a b) (funcall hack-time-mode-time-add
+                          (or a hack-time-mode-at) (or b hack-time-mode-at))))
+  (setf (symbol-function 'time-equal-p)
+        (lambda (a b) (funcall hack-time-mode-time-equal-p
+                          (or a hack-time-mode-at) (or b hack-time-mode-at))))
+  (setf (symbol-function 'time-less-p)
+        (lambda (a b) (funcall hack-time-mode-time-less-p
+                          (or a hack-time-mode-at) (or b hack-time-mode-at))))
+  (setf (symbol-function 'time-subtract)
+        (lambda (a b) (funcall hack-time-mode-time-subtract
+                               (or a hack-time-mode-at) (or b hack-time-mode-at)))))
+#+end_src
+
+***** Commands
+:PROPERTIES:
+:ID:       5febcc2d-8798-4b1b-98ae-eb0f478db53d
+:END:
+
+#+name: commands
+#+begin_src emacs-lisp
+
+
+(declare-function org-read-date "org")
+
+
+;; Commands
+(defun hack-time-mode-set-current-time (target-date)
+  "Ask user for a date and set it as current time.
+The current time does not move until call of
+`hack-time-mode-current-time-back-to-normal'.
+
+Examples for specifying the current time.
+
+- \"-1\" to set current time to yesterday at 11:55 am.
+- \"-1 12:05\" to set current time to yesterday at 12:05 pm.
+
+See `org-read-date' for more about how to specify the current
+time."
+  (interactive (list (org-read-date)))
+  (hack-time-mode--set-time (concat target-date " 11:55")) ; little hack to get HH:MM in case user did not specify.
+  (message "%s" (format-time-string "current-time hacked to: %Y-%m-%d %H:%M"
+                                    (current-time))))
+#+end_src
+
+* Ideas
+
+*** More tests
+
+*** Relative time-hack
+
+Shift to another time and let the time flow naturally there.  This is
+opposed to a freeze.
+
+*** TODO Centralize the documentation
+
+- Idea: Use an orgee (Org subtree) for documentation.  Transform that orgee
+  to elisp and readme.md.
+
+* Closing notes
+
+
+# Local Variables:
+# End:
