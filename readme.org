@@ -1,1 +1,1 @@
-hack-time-mode.org
+./hack-time-mode.org
