@@ -2,7 +2,13 @@
 
 * Commentary
 
-Forge the current time in Emacs.
+#+begin_verse
+Wich great processing power comes great responsibility.
+
+[Hackerman, "How to Hack Time", HACKERMAN'S HACKING TUTORIALS, https://youtu.be/KEkrWRHCDQU?t=57]
+#+end_verse
+
+Forge time in Emacs.
 
 This is a minor mode.  You can turn it on to change the time and later
 turn it off to go back to normal time.
@@ -50,6 +56,7 @@ again.  The time is back to normal flow.
 
 #+name: more-about-hack-time-mode
 #+begin_src org
+
 ,* Use cases
 
 - Mark Org-todo-items done at another date.
@@ -58,9 +65,6 @@ again.  The time is back to normal flow.
   date.
 
 ,* Warning
-
-"With great power comes great responsibility." (from the TL;DR for
-Timelords)
 
 Possibly some functionalities behave weird when hack-time-mode is on.
 
@@ -150,7 +154,8 @@ Initial shot.
 :ID:       bdf129d9-29f3-477c-9fab-a7879bdb7e5a
 :END:
 
-The first line follows [[info:elisp#Simple%20Packages][info:elisp#Simple Packages]].
+The first line follows the convention stated in [[info:elisp#Simple
+Packages]].
 
 #+begin_src emacs-lisp :tangle hack-time-mode.el :noweb yes
 ;;; hack-time-mode.el --- Forge time   -*- lexical-binding: t ; eval: (read-only-mode 1) -*-
