@@ -251,7 +251,7 @@ use either \\[customize] or the function `hack-time-mode'."
   :lighter " HACK-TIME-MODE"
   (if hack-time-mode
       (call-interactively #'hack-time-mode-set-current-time)
-    (hack-time-mode--current-time-back-to-normal-with-message)))
+    (hack-time-mode--reset)))
 #+end_src
 
 ***** Core

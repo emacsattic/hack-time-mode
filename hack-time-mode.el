@@ -51,6 +51,7 @@
 ;;     {M-x hack-time-mode RET}
 ;; 
 ;; again.  The time is back to normal flow.
+;; 
 ;; * Use cases
 ;; 
 ;; - Mark Org-todo-items done at another date.
@@ -59,9 +60,6 @@
 ;;   date.
 ;; 
 ;; * Warning
-;; 
-;; "With great power comes great responsibility." (from the TL;DR for
-;; Timelords)
 ;; 
 ;; Possibly some functionalities behave weird when hack-time-mode is on.
 ;; 
@@ -96,7 +94,7 @@ use either \\[customize] or the function `hack-time-mode'."
   :lighter " HACK-TIME-MODE"
   (if hack-time-mode
       (call-interactively #'hack-time-mode-set-current-time)
-    (hack-time-mode--current-time-back-to-normal-with-message)))
+    (hack-time-mode--reset)))
 ;; ht-minor-mode-config ends here
 ;; [[[[id:e62ab536-0322-4583-9994-0150a330445c][Core]]][forge-time-symbol-functions]]
 ; credits to Paul Eggert who introduced this to org-test.el.
