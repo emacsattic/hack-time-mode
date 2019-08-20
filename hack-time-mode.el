@@ -129,9 +129,12 @@ use either \\[customize] or the function `hack-time-mode'."
   (setf (symbol-function 'time-subtract) hack-time-mode-time-subtract))
 
 (defun hack-time-mode--set-time (hack-time)
-  (setf hack-time-mode-at (if (stringp hack-time)
-               (apply #'encode-time (org-parse-time-string hack-time))
-             hack-time))
+  (setf hack-time-mode-at
+        (if (stringp hack-time)
+            (append (apply #'encode-time (org-parse-time-string hack-time))
+                    ;; hack for emacs27 (with more accurate current-time AFAICT.)
+                    (when (= 4 (length (current-time))) '(0 0)))
+          hack-time))
   (setf (symbol-function 'current-time) (lambda () hack-time-mode-at))
   (setf (symbol-function 'current-time-string)
         (lambda (&optional time &rest args)
