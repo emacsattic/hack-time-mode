@@ -96,7 +96,7 @@ triggered by C-cv t.
 *** License GPL 3
 
 #+name: copyright-hack-time-mode
-#+begin_src org
+#+begin_src org :noweb yes
 Copyright 2017-2019 Marco Wahl
 
 Author: Marco Wahl <marcowahlsoft@gmail.com>
@@ -127,7 +127,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #+name: hack-time-mode-version
 #+begin_src text
-0.1.0
+0.1.1
 #+end_src
 
 *** Log

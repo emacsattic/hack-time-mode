@@ -10,7 +10,7 @@
 ;; Author: Marco Wahl <marcowahlsoft@gmail.com>
 ;; Maintainer: Marco Wahl <marcowahlsoft@gmail.com>
 ;; Created: 2017
-;; Version: <<hack-time-mode-version>>
+;; Version: 0.1.1
 ;; Package-Requires: ((emacs "24.4"))
 ;; Keywords: time, convenience
 ;; URL: https://gitlab.com/marcowahl/hack-time-mode
